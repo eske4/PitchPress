@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.30.3)
 
 project(
-  audio_to_keystrokes
+  PitchPress
   VERSION 1.0.0
   LANGUAGES C CXX)
 

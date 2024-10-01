@@ -1,6 +1,6 @@
 # The build directory
 BUILD_DIR = build
-EXECUTABLE = audio_to_keystrokes
+EXECUTABLE = PitchPress
 
 # Declare build as a phony target to ensure it's always executed
 .PHONY: all build clean test
