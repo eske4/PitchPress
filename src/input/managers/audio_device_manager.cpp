@@ -15,8 +15,20 @@ AudioDeviceManager::~AudioDeviceManager() {
   std::cout << "I deleted myself";
 }
 
+std::vector<AudioDevice> AudioDeviceManager::getAudioDevices() {
+  std::vector<AudioDevice> audioDevices;
+
+  const PaDeviceInfo *deviceInfo;
+  for (int i = 0; i < Pa_GetDeviceCount(); i++) {
+    const PaDeviceInfo *deviceInfo = Pa_GetDeviceInfo(i);
+    if (deviceInfo != nullptr)
+      audioDevices.emplace_back(AudioDevice(i, deviceInfo));
+  }
+  return audioDevices;
+}
+
 void AudioDeviceManager::openStream(int device) {
-  PaStreamParameters inputParameters, outputParameters;
+  PaStreamParameters inputParameters;
 
   memset(&inputParameters, 0, sizeof(inputParameters));
   inputParameters.channelCount = 2; // get left and right input
@@ -44,13 +56,7 @@ void AudioDeviceManager::closeStream() {
 }
 
 void AudioDeviceManager::printAvailableAudioDevices() {
-  std::cout << "I started";
-  // checkErr(err);
-
-  int numDevices = Pa_GetDeviceCount();
-  const PaDeviceInfo *deviceInfo;
-  for (int i = 0; i < numDevices; i++) {
-    deviceInfo = Pa_GetDeviceInfo(i);
-    printAudioDevice(deviceInfo, i);
+  for (const auto &item : getAudioDevices()) {
+    printAudioDevice(item.info, item.deviceId);
   }
 }
