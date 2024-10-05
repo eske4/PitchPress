@@ -1,6 +1,5 @@
 #pragma once
 
-#include "audio_device.h"
 #include <memory>
 #include <portaudio.h>
 #include <vector>
@@ -16,7 +15,6 @@ public:
 
 private:
   void printAvailableAudioDevices();
-  std::vector<AudioDevice> getAudioDevices();
   PaError err;
   std::unique_ptr<PaStream, decltype(&Pa_CloseStream)> stream{nullptr,
                                                               &Pa_CloseStream};

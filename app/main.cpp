@@ -8,9 +8,9 @@ int main() { // Entry point of the program
   std::cout << project_name << '\n';
   std::cout << project_version << '\n';
   AudioDeviceManager mic;
-  std::string input;
+  int input;
   std::cin >> input;
-  mic.openStream(std::stoi(input));
+  mic.openStream(input);
   Pa_Sleep(1 * 1000);
   mic.closeStream();
 
